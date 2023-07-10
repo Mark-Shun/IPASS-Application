@@ -27,6 +27,7 @@ void setup(void) {
   myDisplay.fillScreen(ST77XX_BLACK);
   myDisplay.drawText(10,100,"Setting up",ST77XX_GREEN,2);
   myDisplay.drawText(0,140,"Please don't move controller",ST77XX_ORANGE);
+  
   delay(100);
   status = myController.init();
   if(status != 0){

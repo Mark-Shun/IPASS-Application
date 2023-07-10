@@ -16,6 +16,6 @@ enum State {
   COMMFAIL
 };
 
-const int yellow_button = 5;
+const int yellow_button = 6;
 
 #endif

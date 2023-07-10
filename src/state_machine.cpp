@@ -67,9 +67,11 @@ byte StateMachine::updateDebug(){
     status = mySensor.communicationCheck();
     myController.update();
     myController.mapAnglesToCoordinates(80,80);
+
     if(digitalRead(yellow_button) == HIGH){
         myController.reset(80,80);
     }
+    
     myDisplay.updateDebugWindow(80,150,myController.getPositionX(),myController.getPositionY(),4,ST77XX_RED,ST77XX_BLACK);
 
     myDisplay.drawNumber(120,10,myController.getPositionX(),10, ST77XX_CYAN,ST77XX_BLACK,2, false);
@@ -109,9 +111,7 @@ byte StateMachine::updateDebugSerial(){
 int StateMachine::calculateFrameRate(){
     current_time = millis();
     unsigned long delta_time = current_time - previous_time;
-    Serial.print("Delta time: "); Serial.println(delta_time);
     float frame_rate = 1000.0/delta_time;
-    Serial.print("Frame rate: "); Serial.println(frame_rate);
     previous_time = current_time;
     return static_cast<int>(frame_rate);
 }
