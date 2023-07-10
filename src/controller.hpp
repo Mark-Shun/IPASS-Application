@@ -26,7 +26,7 @@ public:
     byte init();
     void update();
     void mapAnglesToCoordinates(float region_width, float region_height);
-    void reset();
+    void reset(float region_width, float region_height);
     float getPositionX();
     float getPositionY();
     

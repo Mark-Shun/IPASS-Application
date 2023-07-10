@@ -85,9 +85,9 @@ void controller::mapAnglesToCoordinates(float region_width, float region_height)
 
 }
 
-void controller::reset(){
-    angle_x_offset = (angle_x - angle_x_offset);
-    angle_y_offset = (angle_y - angle_y_offset);
+void controller::reset(float region_width, float region_height){
+    angle_x_offset = angle_x - map(position_x, 0, region_width, -60, 60);
+    angle_y_offset = angle_y - map(position_y, 0, region_height, -60, 60);
 }
 
 float controller::getPositionX(){

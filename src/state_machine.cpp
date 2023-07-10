@@ -62,11 +62,11 @@ byte StateMachine::updateDebug(){
         flag_display_init = true;
     }
     status = mySensor.communicationCheck();
-    if(digitalRead(yellow_button) == HIGH){
-        myController.reset();
-    }
     myController.update();
     myController.mapAnglesToCoordinates(80,80);
+    if(digitalRead(yellow_button) == HIGH){
+        myController.reset(80,80);
+    }
     myDisplay.updateDebugWindow(80,150,myController.getPositionX(),myController.getPositionY(),4,ST77XX_RED,ST77XX_BLACK);
 
     myDisplay.drawNumber(120,10,myController.getPositionX(),10, ST77XX_CYAN,ST77XX_BLACK,2, false);
