@@ -43,6 +43,22 @@ byte StateMachine::communicationFail(){
     return status;
 }
 
+void StateMachine::updateDebugScreen(){
+    myDisplay.updateDebugWindow(80,150,myController.getPositionX(),myController.getPositionY(),4,ST77XX_RED,ST77XX_BLACK);
+
+    // myDisplay.drawNumber(120,10,myController.getPositionX(),10, ST77XX_CYAN,ST77XX_BLACK,2, false);
+    // myDisplay.drawNumber(120,30,myController.getPositionY(),10,ST77XX_CYAN,ST77XX_BLACK,2, false);
+
+    // myDisplay.drawNumber(120,50,myController.getRawGyroX(),10, ST77XX_GREEN,ST77XX_BLACK,2, false);
+    // myDisplay.drawNumber(120,70,myController.getRawGyroY(),10, ST77XX_GREEN,ST77XX_BLACK,2, false);
+
+    // myDisplay.drawNumber(120,90,myController.getAngleX(),10, ST77XX_ORANGE, ST77XX_BLACK,2, false);
+    // myDisplay.drawNumber(120,110,myController.getAngleY(),10, ST77XX_ORANGE, ST77XX_BLACK,2, false);
+    // myDisplay.drawNumber(120,130,myController.getAngleZ(),10, ST77XX_ORANGE, ST77XX_BLACK,2, false);
+
+    myDisplay.drawNumber(45,210,calculateFrameRate(),5,ST77XX_YELLOW,ST77XX_BLACK,2,false);
+}
+
 byte StateMachine::updateDebug(){
     if(flag_display_init == false){
         previous_time = millis();
@@ -72,19 +88,7 @@ byte StateMachine::updateDebug(){
         myController.reset(80,80);
     }
     
-    myDisplay.updateDebugWindow(80,150,myController.getPositionX(),myController.getPositionY(),4,ST77XX_RED,ST77XX_BLACK);
-
-    myDisplay.drawNumber(120,10,myController.getPositionX(),10, ST77XX_CYAN,ST77XX_BLACK,2, false);
-    myDisplay.drawNumber(120,30,myController.getPositionY(),10,ST77XX_CYAN,ST77XX_BLACK,2, false);
-
-    myDisplay.drawNumber(120,50,myController.getRawGyroX(),10, ST77XX_GREEN,ST77XX_BLACK,2, false);
-    myDisplay.drawNumber(120,70,myController.getRawGyroY(),10, ST77XX_GREEN,ST77XX_BLACK,2, false);
-
-    myDisplay.drawNumber(120,90,myController.getAngleX(),10, ST77XX_ORANGE, ST77XX_BLACK,2, false);
-    myDisplay.drawNumber(120,110,myController.getAngleY(),10, ST77XX_ORANGE, ST77XX_BLACK,2, false);
-    myDisplay.drawNumber(120,130,myController.getAngleZ(),10, ST77XX_ORANGE, ST77XX_BLACK,2, false);
-
-    myDisplay.drawNumber(45,210,calculateFrameRate(),5,ST77XX_YELLOW,ST77XX_BLACK,2,false);
+    updateDebugScreen();
 
     return status;
 }

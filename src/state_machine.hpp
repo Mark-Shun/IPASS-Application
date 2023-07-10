@@ -20,8 +20,11 @@ State previous_state;
 
 bool flag_display_init = false;
 
+// Used for drawing
 unsigned long timer;
+unsigned long previous_timer;
 
+// Used for fps
 unsigned long previous_time;
 unsigned long current_time;
 
@@ -36,6 +39,8 @@ public:
     State getPrevStat();
 
     byte communicationFail();
+
+    void updateDebugScreen();
     byte updateDebug();
     byte updateDebugSerial();
 
