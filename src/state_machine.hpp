@@ -20,7 +20,11 @@ State previous_state;
 
 bool flag_display_init = false;
 
-long timer = millis();
+unsigned long timer = millis();
+unsigned long previous_time = millis();
+unsigned long current_time;
+
+float fps;
 
 char rotation_x_text[10];
 char rotation_y_text[10];
@@ -47,6 +51,8 @@ public:
     byte communicationFail();
     byte updateDebug();
     byte updateDebugSerial();
+
+    int calculateFrameRate();
 
 };
 

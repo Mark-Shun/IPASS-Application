@@ -48,15 +48,17 @@ byte StateMachine::updateDebug(){
         myDisplay.init();
         myDisplay.fillScreen(ST77XX_BLACK);
 
-        myDisplay.drawText(0,10, "Position X: ");
-        myDisplay.drawText(0,30,"Position Y: ");
+        myDisplay.drawText(0,15, "Position X: ");
+        myDisplay.drawText(0,40,"Position Y: ");
 
-        myDisplay.drawText(0,50,"Raw Rot X:");
-        myDisplay.drawText(0,70,"Raw Rot Y:");
+        myDisplay.drawText(0,60,"Raw Rot X:");
+        myDisplay.drawText(0,80,"Raw Rot Y:");
 
-        myDisplay.drawText(0,90,"Angle X:");
+        myDisplay.drawText(0,100,"Angle X:");
         myDisplay.drawText(0,120,"Angle Y:");
-        myDisplay.drawText(0,130,"Angle Z:");
+        myDisplay.drawText(0,140,"Angle Z:");
+
+        myDisplay.drawText(0,220,"FPS:");
 
         myDisplay.initDebugWindow(80,150,80,80,ST77XX_RED,ST77XX_BLACK);
         flag_display_init = true;
@@ -79,6 +81,8 @@ byte StateMachine::updateDebug(){
     myDisplay.drawNumber(120,110,myController.getAngleY(),10, ST77XX_ORANGE, ST77XX_BLACK,2, false);
     myDisplay.drawNumber(120,130,myController.getAngleZ(),10, ST77XX_ORANGE, ST77XX_BLACK,2, false);
 
+    myDisplay.drawNumber(45,210,calculateFrameRate(),5,ST77XX_YELLOW,ST77XX_BLACK,2,false);
+
     return status;
 }
 
@@ -99,4 +103,14 @@ byte StateMachine::updateDebugSerial(){
     }
     status = mySensor.communicationCheck();
     return status;
+}
+
+int StateMachine::calculateFrameRate(){
+    current_time = millis();
+    unsigned long delta_time = previous_time - current_time;
+    Serial.print("Delta time: "); Serial.println(delta_time);
+    float frame_rate = 1000.0/delta_time;
+    Serial.print("Frame rate: "); Serial.println(frame_rate);
+    previous_time = current_time;
+    return static_cast<int>(frame_rate);
 }
