@@ -45,6 +45,7 @@ byte StateMachine::communicationFail(){
 
 byte StateMachine::updateDebug(){
     if(flag_display_init == false){
+        previous_time = millis();
         myDisplay.init();
         myDisplay.fillScreen(ST77XX_BLACK);
 
@@ -107,7 +108,7 @@ byte StateMachine::updateDebugSerial(){
 
 int StateMachine::calculateFrameRate(){
     current_time = millis();
-    unsigned long delta_time = previous_time - current_time;
+    unsigned long delta_time = current_time - previous_time;
     Serial.print("Delta time: "); Serial.println(delta_time);
     float frame_rate = 1000.0/delta_time;
     Serial.print("Frame rate: "); Serial.println(frame_rate);

@@ -20,11 +20,10 @@ State previous_state;
 
 bool flag_display_init = false;
 
-unsigned long timer = millis();
-unsigned long previous_time = millis();
-unsigned long current_time;
+unsigned long timer;
 
-float fps;
+unsigned long previous_time;
+unsigned long current_time;
 
 char rotation_x_text[10];
 char rotation_y_text[10];
