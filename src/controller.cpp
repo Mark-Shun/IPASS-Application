@@ -60,7 +60,8 @@ byte controller::init(){
 // Code modified from MPU6050_light
 void controller::update(){
   // retrieve raw data
-  CalcSensorData data = sensor.getAllCalcSensorData();
+  raw_data = sensor.getAllSensorData();
+  CalcSensorData data = sensor.getAllCalcSensorData(raw_data);
   
   // estimate tilt angles: this is an approximation for small angles!
   float sgZ = ((data.calc_accel_z)>=0)-((data.calc_accel_z)<0); // allow one angle to go from -180 to +180 degrees
@@ -96,18 +97,6 @@ float controller::getPositionX(){
 
 float controller::getPositionY(){
     return position_y;
-}
-
-int16_t controller::getRawGyroX(){
-    return sensor.getGyroX();
-}
-
-int16_t controller::getRawGyroY(){
-    return sensor.getGyroY();
-}
-
-int16_t controller::getRawGyroZ(){
-    return sensor.getGyroZ();
 }
 
 float controller::getAngleX(){

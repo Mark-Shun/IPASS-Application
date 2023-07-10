@@ -21,6 +21,8 @@ private:
     uint16_t gyro_scale;
     mpu6050 sensor;
 
+    SensorData raw_data;
+
 public:
     controller(mpu6050 & sensor);
     byte init();
@@ -30,9 +32,9 @@ public:
     float getPositionX();
     float getPositionY();
     
-    int16_t getRawGyroX();
-    int16_t getRawGyroY();
-    int16_t getRawGyroZ();
+    int16_t getRawGyroX(){return raw_data.gyro_x;};
+    int16_t getRawGyroY(){return raw_data.gyro_y;};
+    int16_t getRawGyroZ(){return raw_data.gyro_z;};
 
     float getAngleX();
     float getAngleY();
