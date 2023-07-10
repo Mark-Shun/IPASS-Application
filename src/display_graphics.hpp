@@ -9,7 +9,9 @@ class ST7789Display{
 private:
     Adafruit_ST7789 tft;
     int8_t rotation;
-    GFXcanvas1 debug_simple_canvas;
+    
+    float previous_controller_position_x;
+    float previous_controller_position_y;
 
 public:
     ST7789Display(int8_t cs, int8_t dc, int8_t rst, int8_t rotation);
@@ -24,7 +26,8 @@ public:
     void drawRect(const int16_t & x, const int16_t & y, const int16_t & w, const int16_t & h, const uint16_t & color);
     void fillRect(const int16_t & x, const int16_t & y, const int16_t & w, const int16_t & h, const uint16_t & color);
     void drawCircle(const uint16_t & x, const uint16_t & y, const uint16_t & r, uint16_t color);
-    void drawDebugWindow(const int16_t & position_rectangle_x, const int16_t & position_rectangle_y, const int16_t & width, const int16_t & height, const uint16_t & color, const uint16_t & bg_color, const float & controller_position_x, const float & controller_position_y, const uint16_t & radius);
+    void initDebugWindow(const int16_t & position_rectangle_x, const int16_t & position_rectangle_y, const int16_t & width, const int16_t & height, const uint16_t & color, const uint16_t & bg_color);
+    void updateDebugWindow(const int16_t & position_rectangle_x, const int16_t & position_rectangle_y, const float & controller_position_x, const float & controller_position_y, const uint16_t & radius, const uint16_t & color, const uint16_t & bg_color);
 
 };
 

@@ -2,12 +2,11 @@
 
 ST7789Display::ST7789Display(int8_t cs, int8_t dc, int8_t rst, int8_t rotation)
     : tft(cs,dc,rst),
-    rotation(rotation),
-    debug_simple_canvas(GFXcanvas1(82,82))
+    rotation(rotation)
     {}
 
 void ST7789Display::init(){
-    tft.init(240,240, SPI_MODE2);
+    tft.init(240,240, SPI_MODE3);
     tft.setRotation(rotation);
     tft.setAddrWindow(0,0,239,239);
 }
@@ -78,9 +77,13 @@ void ST7789Display::drawCircle(const uint16_t & x, const uint16_t & y, const uin
     tft.drawCircle(x,y,r,color);
 }
 
-void ST7789Display::drawDebugWindow(const int16_t & position_rectangle_x, const int16_t & position_rectangle_y, const int16_t & width, const int16_t & height, const uint16_t & color, const uint16_t & bg_color, const float & controller_position_x, const float & controller_position_y, const uint16_t & radius){
-    debug_simple_canvas.fillScreen(bg_color);
-    debug_simple_canvas.drawRect(1,1,width,height,color);
-    debug_simple_canvas.drawCircle((controller_position_x),(controller_position_y),radius,color);
-    tft.drawBitmap(position_rectangle_x,position_rectangle_y,debug_simple_canvas.getBuffer(),debug_simple_canvas.width(),debug_simple_canvas.height(),color,bg_color);
+void ST7789Display::initDebugWindow(const int16_t & position_rectangle_x, const int16_t & position_rectangle_y, const int16_t & width, const int16_t & height, const uint16_t & color, const uint16_t & bg_color){
+    tft.drawRect(position_rectangle_x,position_rectangle_y,width,height,color);
+}
+
+void ST7789Display::updateDebugWindow(const int16_t & position_rectangle_x, const int16_t & position_rectangle_y, const float & controller_position_x, const float & controller_position_y, const uint16_t & radius, const uint16_t & color, const uint16_t & bg_color){
+    tft.fillCircle((previous_controller_position_x+position_rectangle_x),(previous_controller_position_y+position_rectangle_y),radius+1,bg_color);
+    tft.drawCircle((controller_position_x+position_rectangle_x),(controller_position_y+position_rectangle_y),radius,color);
+    previous_controller_position_x = controller_position_x;
+    previous_controller_position_y = controller_position_y;
 }

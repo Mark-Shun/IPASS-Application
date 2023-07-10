@@ -47,6 +47,18 @@ byte StateMachine::updateDebug(){
     if(flag_display_init == false){
         myDisplay.init();
         myDisplay.fillScreen(ST77XX_BLACK);
+
+        myDisplay.drawText(0,10, "Position X: ");
+        myDisplay.drawText(0,30,"Position Y: ");
+
+        myDisplay.drawText(0,50,"Raw Rot X:");
+        myDisplay.drawText(0,70,"Raw Rot Y:");
+
+        myDisplay.drawText(0,90,"Angle X:");
+        myDisplay.drawText(0,120,"Angle Y:");
+        myDisplay.drawText(0,130,"Angle Z:");
+
+        myDisplay.initDebugWindow(80,150,80,80,ST77XX_RED,ST77XX_BLACK);
         flag_display_init = true;
     }
     status = mySensor.communicationCheck();
@@ -55,25 +67,17 @@ byte StateMachine::updateDebug(){
     }
     myController.update();
     myController.mapAnglesToCoordinates(80,80);
+    myDisplay.updateDebugWindow(80,150,myController.getPositionX(),myController.getPositionY(),4,ST77XX_RED,ST77XX_BLACK);
 
-    myDisplay.drawText(0,10, "Position X: ");
     myDisplay.drawNumber(120,10,myController.getPositionX(),10, ST77XX_CYAN,ST77XX_BLACK,2, false);
-    myDisplay.drawText(0,30,"Position Y: ");
     myDisplay.drawNumber(120,30,myController.getPositionY(),10,ST77XX_CYAN,ST77XX_BLACK,2, false);
 
-    myDisplay.drawText(0,50,"Raw Rot X:");
     myDisplay.drawNumber(120,50,myController.getRawGyroX(),10, ST77XX_GREEN,ST77XX_BLACK,2, false);
-    myDisplay.drawText(0,70,"Raw Rot Y:");
     myDisplay.drawNumber(120,70,myController.getRawGyroY(),10, ST77XX_GREEN,ST77XX_BLACK,2, false);
 
-    myDisplay.drawText(0,90,"Angle X:");
     myDisplay.drawNumber(120,90,myController.getAngleX(),10, ST77XX_ORANGE, ST77XX_BLACK,2, false);
-    myDisplay.drawText(0,120,"Angle Y:");
     myDisplay.drawNumber(120,110,myController.getAngleY(),10, ST77XX_ORANGE, ST77XX_BLACK,2, false);
-    myDisplay.drawText(0,130,"Angle Z:");
     myDisplay.drawNumber(120,130,myController.getAngleZ(),10, ST77XX_ORANGE, ST77XX_BLACK,2, false);
-
-    myDisplay.drawDebugWindow(80,150,80,80,ST77XX_RED,ST77XX_BLACK,myController.getPositionX(),myController.getPositionY(),4);
 
     return status;
 }
