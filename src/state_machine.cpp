@@ -59,10 +59,31 @@ byte StateMachine::updateNormal(){
         myController.reset(210,210);
     }
     
-    myDisplay.updateCircle(20,20,myController.getPositionX(),myController.getPositionY(),10,ST77XX_CYAN,ST77XX_BLACK);
+    myDisplay.updateCircle(0,0,myController.getPositionX(),myController.getPositionY(),10,ST77XX_CYAN,ST77XX_BLACK);
 
     return status;
 
+}
+
+byte StateMachine::updateNormalFill(){
+    if(flag_display_init == false){
+        myDisplay.init();
+        myDisplay.fillScreen(ST77XX_BLACK);
+
+        myDisplay.initNormalFillWindow();
+        flag_display_init = true;
+    }
+    status = mySensor.communicationCheck();
+    myController.update();
+    myController.mapAnglesToCoordinates(240,240);
+
+    if(digitalRead(yellow_button) == HIGH){
+        myController.reset(240,240);
+    }
+    
+    myDisplay.updateCircle(0,0,myController.getPositionX(),myController.getPositionY(),10,ST77XX_CYAN,ST77XX_BLACK);
+
+    return status; 
 }
 
 void StateMachine::updateDebugScreen(){

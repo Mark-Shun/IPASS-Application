@@ -84,6 +84,13 @@ void ST7789Display::initNormalWindow(unsigned const int & border_size, const uin
     }
 }
 
+void ST7789Display::initNormalFillWindow(){
+    tft.fillRect(0,0,240,240,ST77XX_RED);
+    tft.fillRect(20,20,200,200,ST77XX_WHITE);
+    tft.fillCircle(120,120,90,ST77XX_BLUE);
+    tft.fillCircle(120,120,60,ST77XX_MAGENTA);
+}
+
 void ST7789Display::initDebugWindow(const int16_t & position_rectangle_x, const int16_t & position_rectangle_y, const int16_t & width, const int16_t & height, const uint16_t & color, const uint16_t & bg_color){
     tft.drawRect(position_rectangle_x,position_rectangle_y,width,height,color);
 }

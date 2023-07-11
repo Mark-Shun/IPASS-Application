@@ -41,6 +41,7 @@ public:
     byte communicationFail();
 
     byte updateNormal();
+    byte updateNormalFill();
     void updateDebugScreen();
     byte updateDebug();
     byte updateDebugSerial();

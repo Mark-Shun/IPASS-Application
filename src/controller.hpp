@@ -5,8 +5,8 @@
 
 class controller{
 private:
-    float position_x = 0;
-    float position_y = 0;
+    float position_x = 120;
+    float position_y = 120;
 
     float angle_x_offset;
     float angle_y_offset;

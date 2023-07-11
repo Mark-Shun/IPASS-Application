@@ -28,6 +28,7 @@ public:
     void drawCircle(const uint16_t & x, const uint16_t & y, const uint16_t & r, uint16_t color);
 
     void initNormalWindow(unsigned const int & border_size, const uint16_t & color);
+    void initNormalFillWindow();
     void initDebugWindow(const int16_t & position_rectangle_x, const int16_t & position_rectangle_y, const int16_t & width, const int16_t & height, const uint16_t & color, const uint16_t & bg_color);
     void updateCircle(const int16_t & position_rectangle_x, const int16_t & position_rectangle_y, const float & controller_position_x, const float & controller_position_y, const uint16_t & radius, const uint16_t & color, const uint16_t & bg_color);
 

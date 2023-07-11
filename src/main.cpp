@@ -108,7 +108,7 @@ void loop() {
       }
       break;
     case NORMALFILL:
-      status = myStateMachine.updateNormal();
+      status = myStateMachine.updateNormalFill();
       if(status != 0){
         execute_state = COMMFAIL;
         myStateMachine.setPrevStat(NORMALFILL);
