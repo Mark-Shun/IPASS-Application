@@ -46,21 +46,25 @@ byte StateMachine::communicationFail(){
 void StateMachine::updateDebugScreen(){
     myDisplay.updateDebugWindow(80,150,myController.getPositionX(),myController.getPositionY(),4,ST77XX_RED,ST77XX_BLACK);
 
-    myDisplay.drawNumber(120,10,myController.getPositionX(),10, ST77XX_CYAN,ST77XX_BLACK,2, false);
-    myDisplay.drawNumber(120,30,myController.getPositionY(),10,ST77XX_CYAN,ST77XX_BLACK,2, false);
+    if(millis()-previous_timer > 16){ // Update the value drawings every 16ms (approxiametely 60fps)
+        myDisplay.drawNumber(120,10,myController.getPositionX(),10, ST77XX_CYAN,ST77XX_BLACK,2, false);
+        myDisplay.drawNumber(120,30,myController.getPositionY(),10,ST77XX_CYAN,ST77XX_BLACK,2, false);
 
-    myDisplay.drawNumber(120,50,myController.getRawGyroX(),10, ST77XX_GREEN,ST77XX_BLACK,2, false);
-    myDisplay.drawNumber(120,70,myController.getRawGyroY(),10, ST77XX_GREEN,ST77XX_BLACK,2, false);
+        myDisplay.drawNumber(120,50,myController.getRawGyroX(),10, ST77XX_GREEN,ST77XX_BLACK,2, false);
+        myDisplay.drawNumber(120,70,myController.getRawGyroY(),10, ST77XX_GREEN,ST77XX_BLACK,2, false);
 
-    myDisplay.drawNumber(120,90,myController.getAngleX(),10, ST77XX_ORANGE, ST77XX_BLACK,2, false);
-    myDisplay.drawNumber(120,110,myController.getAngleY(),10, ST77XX_ORANGE, ST77XX_BLACK,2, false);
-    myDisplay.drawNumber(120,130,myController.getAngleZ(),10, ST77XX_ORANGE, ST77XX_BLACK,2, false);
+        myDisplay.drawNumber(120,90,myController.getAngleX(),10, ST77XX_ORANGE, ST77XX_BLACK,2, false);
+        myDisplay.drawNumber(120,110,myController.getAngleY(),10, ST77XX_ORANGE, ST77XX_BLACK,2, false);
+        myDisplay.drawNumber(120,130,myController.getAngleZ(),10, ST77XX_ORANGE, ST77XX_BLACK,2, false);
+        previous_timer = millis();
+    }
 
     myDisplay.drawNumber(42,210,calculateFrameRate(),5,ST77XX_YELLOW,ST77XX_BLACK,2,false);
 }
 
 byte StateMachine::updateDebug(){
     if(flag_display_init == false){
+        previous_timer = millis();
         previous_time = millis();
         myDisplay.init();
         myDisplay.fillScreen(ST77XX_BLACK);
