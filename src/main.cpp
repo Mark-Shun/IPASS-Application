@@ -43,12 +43,18 @@ void setup(void) {
       status = myController.init();
     }
   }
-  execute_state = DEBUG;
+  execute_state = NORMAL;
 }
 
 void loop() {  
   switch (execute_state){
     case NORMAL:
+      status = myStateMachine.updateNormal();
+      if(status != 0){
+        execute_state = COMMFAIL;
+        myStateMachine.setPrevStat(DEBUG);
+        myStateMachine.setFlagDisplayInit(false);
+      }
       break;
     case DEBUG:
       status = myStateMachine.updateDebug();

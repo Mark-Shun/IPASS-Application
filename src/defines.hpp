@@ -16,6 +16,8 @@ enum State {
   COMMFAIL
 };
 
-const int yellow_button = 6;
+const uint8_t yellow_button = 7;
+const uint8_t blue_button = 6;
+const uint8_t green_button = 5;
 
 #endif

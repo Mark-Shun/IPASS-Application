@@ -43,8 +43,30 @@ byte StateMachine::communicationFail(){
     return status;
 }
 
+byte StateMachine::updateNormal(){
+    if(flag_display_init == false){
+        myDisplay.init();
+        myDisplay.fillScreen(ST77XX_BLACK);
+
+        myDisplay.initNormalWindow(20,ST77XX_ORANGE);
+        flag_display_init = true;
+    }
+    status = mySensor.communicationCheck();
+    myController.update();
+    myController.mapAnglesToCoordinates(210,210);
+
+    if(digitalRead(yellow_button) == HIGH){
+        myController.reset(210,210);
+    }
+    
+    myDisplay.updateCircle(20,20,myController.getPositionX(),myController.getPositionY(),10,ST77XX_CYAN,ST77XX_BLACK);
+
+    return status;
+
+}
+
 void StateMachine::updateDebugScreen(){
-    myDisplay.updateDebugWindow(80,150,myController.getPositionX(),myController.getPositionY(),4,ST77XX_RED,ST77XX_BLACK);
+    myDisplay.updateCircle(80,150,myController.getPositionX(),myController.getPositionY(),4,ST77XX_RED,ST77XX_BLACK);
 
     if(millis()-previous_timer > 16){ // Update the value drawings every 16ms (approxiametely 60fps)
         myDisplay.drawNumber(120,10,myController.getPositionX(),10, ST77XX_CYAN,ST77XX_BLACK,2, false);

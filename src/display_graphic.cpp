@@ -78,11 +78,17 @@ void ST7789Display::drawCircle(const uint16_t & x, const uint16_t & y, const uin
     tft.drawCircle(x,y,r,color);
 }
 
+void ST7789Display::initNormalWindow(unsigned const int & border_size, const uint16_t & color){
+    for(unsigned int i=0; i < border_size; i++){
+        tft.drawRect((0+i),(0+i),((240-i)-i),((240-i)-i),color);
+    }
+}
+
 void ST7789Display::initDebugWindow(const int16_t & position_rectangle_x, const int16_t & position_rectangle_y, const int16_t & width, const int16_t & height, const uint16_t & color, const uint16_t & bg_color){
     tft.drawRect(position_rectangle_x,position_rectangle_y,width,height,color);
 }
 
-void ST7789Display::updateDebugWindow(const int16_t & position_rectangle_x, const int16_t & position_rectangle_y, const float & controller_position_x, const float & controller_position_y, const uint16_t & radius, const uint16_t & color, const uint16_t & bg_color){
+void ST7789Display::updateCircle(const int16_t & position_rectangle_x, const int16_t & position_rectangle_y, const float & controller_position_x, const float & controller_position_y, const uint16_t & radius, const uint16_t & color, const uint16_t & bg_color){
     tft.fillCircle((previous_controller_position_x+position_rectangle_x),(previous_controller_position_y+position_rectangle_y),radius+1,bg_color);
     tft.drawCircle((controller_position_x+position_rectangle_x),(controller_position_y+position_rectangle_y),radius,color);
     previous_controller_position_x = controller_position_x;
