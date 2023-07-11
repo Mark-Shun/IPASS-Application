@@ -1,4 +1,5 @@
 #include "display_graphics.hpp"
+#include <cmath>
 
 ST7789Display::ST7789Display(int8_t cs, int8_t dc, int8_t rst, int8_t rotation)
     : tft(cs,dc,rst),
@@ -26,7 +27,7 @@ void ST7789Display::drawNumber(const int16_t & x, const int16_t & y, const float
     tft.setTextColor(color,back_color);
     tft.setTextSize(size);
     tft.setTextWrap(wrap);
-    tft.print(value,cover_value);
+    tft.print((round(value)),cover_value);
 }
 
 void ST7789Display::drawNumber(const int16_t & x, const int16_t & y, const uint16_t & value, const uint8_t & cover_value, const uint16_t & color, const uint16_t & back_color, const uint8_t & size, const bool & wrap) {
