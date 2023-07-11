@@ -74,16 +74,25 @@ void controller::update(){
 
   // Correctly wrap X and Y angles (special thanks to Edgar Bonet!)
   // https://github.com/gabriel-milan/TinyMPU6050/issues/6
-  angle_x = wrap(DEFAULT_GYRO_COEFF*(new_angle_acc_x + wrap(angle_x -     data.calc_gyro_x*dt - new_angle_acc_x,180)) + (1.0-DEFAULT_GYRO_COEFF)*new_angle_acc_x,180);
+  angle_x = wrap(DEFAULT_GYRO_COEFF*(new_angle_acc_x + wrap(angle_x +     data.calc_gyro_x*dt - new_angle_acc_x,180)) + (1.0-DEFAULT_GYRO_COEFF)*new_angle_acc_x,180);
   angle_y = wrap(DEFAULT_GYRO_COEFF*(new_angle_acc_y + wrap(angle_y + sgZ*data.calc_gyro_y*dt - new_angle_acc_y, 90)) + (1.0-DEFAULT_GYRO_COEFF)*new_angle_acc_y, 90);
   angle_z += data.calc_gyro_z*dt; // not wrapped (to do???)
 }
 
-void controller::mapAnglesToCoordinates(float region_width, float region_height){
+// void controller::mapAnglesToCoordinates(float region_width, float region_height){
    
-    this->position_x = map((angle_x + angle_x_offset), -60, 60, 0, region_width);
-    this->position_y = map((angle_y + angle_y_offset), -60, 60, 0, region_height);
+//     this->position_x = map((angle_x + angle_x_offset), -60, 60, 0, region_width);
+//     this->position_y = map((angle_y + angle_y_offset), -60, 60, 0, region_height);
 
+// }
+
+void controller::mapAnglesToCoordinates(const float & region_width, const float & region_height, const int & min_x, const int & max_x, const int & min_y, const int & max_y) {
+    position_x = map((angle_x + angle_x_offset), -60, 60, 0, region_width);
+    position_x = constrain(position_x, min_x, max_x);
+
+    // Map the angle_y to position_y as before
+    position_y = map((angle_y + angle_y_offset), -60, 60, 0, region_height);
+    position_y = constrain(position_y, min_y, max_y);
 }
 
 void controller::reset(float region_width, float region_height){

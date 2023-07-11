@@ -53,7 +53,7 @@ byte StateMachine::updateNormal(){
     }
     status = mySensor.communicationCheck();
     myController.update();
-    myController.mapAnglesToCoordinates(210,210);
+    myController.mapAnglesToCoordinates(210,210,30,210,30,210);
 
     if(digitalRead(yellow_button) == HIGH){
         myController.reset(210,210);
@@ -75,7 +75,7 @@ byte StateMachine::updateNormalFill(){
     }
     status = mySensor.communicationCheck();
     myController.update();
-    myController.mapAnglesToCoordinates(240,240);
+    myController.mapAnglesToCoordinates(240,240,0,240,0,240);
 
     if(digitalRead(yellow_button) == HIGH){
         myController.reset(240,240);
@@ -129,7 +129,7 @@ byte StateMachine::updateDebug(){
     }
     status = mySensor.communicationCheck();
     myController.update();
-    myController.mapAnglesToCoordinates(80,80);
+    myController.mapAnglesToCoordinates(80,80,10,70,10,70);
 
     if(digitalRead(yellow_button) == HIGH){
         myController.reset(80,80);
@@ -148,7 +148,7 @@ byte StateMachine::updateDebugSerial(){
         flag_display_init = true;
     }
     myController.update();
-    myController.mapAnglesToCoordinates(240,240);
+    myController.mapAnglesToCoordinates(240,240,0,240,0,240);
 
     if((millis()-timer)>50){
         Serial.print("AngleX: "); Serial.print(myController.getAngleX()); Serial.print("\tAngleY: "); Serial.print(myController.getAngleY()); Serial.print("\tAngleZ: "); Serial.println(myController.getAngleZ());

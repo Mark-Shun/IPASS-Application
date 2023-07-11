@@ -18,6 +18,8 @@ private:
     unsigned long previous_update_time;
     unsigned long current_update_time;
 
+    float previous_mapped_x = 0;
+
     uint16_t gyro_scale;
     mpu6050 sensor;
 
@@ -27,7 +29,7 @@ public:
     controller(mpu6050 & sensor);
     byte init();
     void update();
-    void mapAnglesToCoordinates(float region_width, float region_height);
+    void mapAnglesToCoordinates(const float & region_width, const float & region_height, const int & min_x, const int & max_x, const int & min_y, const int & max_y);
     void reset(float region_width, float region_height);
     float getPositionX();
     float getPositionY();
