@@ -8,8 +8,8 @@ static float wrap(float angle,float limit){
 }
 
 controller::controller(mpu6050 & sensor): 
-    position_x(0.0f),
-    position_y(0.0f),
+    position_x(120.0f),
+    position_y(120.0f),
     angle_x_offset(0.0f),
     angle_y_offset(0.0f),
     angle_x(0.0f),

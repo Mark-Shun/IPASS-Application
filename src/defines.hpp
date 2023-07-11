@@ -11,6 +11,7 @@
 
 enum State {
   NORMAL,
+  NORMALFILL,
   DEBUG,
   DEBUGSERIAL,
   COMMFAIL
